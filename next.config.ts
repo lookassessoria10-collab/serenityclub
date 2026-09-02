@@ -1,3 +1,5 @@
+import type { NextConfig } from "next";
+
 const nextConfig: NextConfig = {
   output: "export",
   trailingSlash: true,
@@ -5,3 +7,5 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
 };
+
+export default nextConfig;
