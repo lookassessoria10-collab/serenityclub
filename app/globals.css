@@ -1655,3 +1655,967 @@ body {
     height: 380px;
   }
 }
+
+/* App-inspired Serenity layout refresh. */
+.app-sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 40;
+  width: 244px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 28px;
+  padding: 28px 18px;
+  border-right: 1px solid rgba(247, 242, 234, 0.12);
+  background: rgba(7, 8, 10, 0.94);
+  backdrop-filter: blur(18px);
+}
+
+.sidebar-brand img {
+  width: 150px;
+}
+
+.sidebar-nav {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+
+.sidebar-nav a {
+  min-height: 44px;
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  padding: 0 12px;
+  color: rgba(247, 242, 234, 0.74);
+  text-decoration: none;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a:focus-visible {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--foreground);
+  outline: none;
+}
+
+.sidebar-nav a:last-child {
+  margin-top: 10px;
+  background: var(--blue);
+  color: #041018;
+  font-weight: 800;
+}
+
+.sidebar-nav span {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(247, 242, 234, 0.12);
+  border-radius: 8px;
+  color: var(--champagne);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.sidebar-nav a:last-child span {
+  border-color: rgba(4, 16, 24, 0.24);
+  color: #041018;
+}
+
+.sidebar-note {
+  border: 1px solid rgba(247, 242, 234, 0.12);
+  border-radius: 8px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.sidebar-note strong {
+  display: inline-grid;
+  min-height: 30px;
+  place-items: center;
+  border-radius: 6px;
+  padding: 0 10px;
+  background: rgba(50, 153, 212, 0.16);
+  color: #bce7ff;
+}
+
+.sidebar-note p {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.app-shell {
+  background:
+    linear-gradient(180deg, rgba(50, 153, 212, 0.12), transparent 520px),
+    linear-gradient(135deg, rgba(90, 32, 48, 0.16), transparent 420px),
+    #08090b;
+}
+
+.app-main {
+  display: grid;
+  gap: 22px;
+  padding: 22px;
+}
+
+.app-hero {
+  min-height: min(640px, calc(100svh - 44px));
+}
+
+.hero-carousel {
+  position: relative;
+  height: min(640px, calc(100svh - 44px));
+  min-height: 520px;
+  overflow: hidden;
+  border: 1px solid rgba(247, 242, 234, 0.12);
+  border-radius: 8px;
+  background: #10151b;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-items: end;
+  padding: clamp(28px, 6vw, 68px);
+  background-position: center;
+  background-size: cover;
+  opacity: 0;
+  transform: scale(1.015);
+  animation: heroGallery 21s ease-in-out infinite;
+  animation-delay: calc(var(--slide-index) * 7s);
+}
+
+.hero-slide-copy {
+  max-width: 720px;
+}
+
+.hero-slide-copy h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(3.2rem, 8vw, 7.2rem);
+  font-weight: 400;
+  line-height: 0.98;
+}
+
+.hero-slide-copy p:not(.eyebrow) {
+  max-width: 560px;
+  margin: 16px 0 0;
+  color: rgba(247, 242, 234, 0.78);
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+
+.carousel-dots {
+  position: absolute;
+  right: 28px;
+  bottom: 24px;
+  z-index: 3;
+  display: flex;
+  gap: 8px;
+}
+
+.carousel-dots span {
+  width: 32px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(247, 242, 234, 0.32);
+  overflow: hidden;
+}
+
+.carousel-dots span::after {
+  content: "";
+  display: block;
+  height: 100%;
+  background: var(--blue);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: heroDot 21s linear infinite;
+}
+
+.carousel-dots span:nth-child(2)::after {
+  animation-delay: 7s;
+}
+
+.carousel-dots span:nth-child(3)::after {
+  animation-delay: 14s;
+}
+
+@keyframes heroGallery {
+  0%,
+  37% {
+    opacity: 1;
+    transform: scale(1.024);
+  }
+
+  48%,
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+@keyframes heroDot {
+  0%,
+  33.2% {
+    transform: scaleX(0);
+  }
+
+  33.3%,
+  66.5% {
+    transform: scaleX(1);
+  }
+
+  66.6%,
+  100% {
+    transform: scaleX(0);
+  }
+}
+
+.catalog-section {
+  border: 1px solid rgba(247, 242, 234, 0.12);
+  border-radius: 8px;
+  padding: clamp(18px, 3vw, 28px);
+  background: rgba(14, 18, 23, 0.86);
+}
+
+.catalog-topbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 360px);
+  align-items: end;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.catalog-topbar h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.2rem, 5vw, 4.4rem);
+  font-weight: 400;
+  line-height: 1.02;
+}
+
+.compact-search {
+  display: grid;
+  gap: 8px;
+  color: var(--champagne);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.compact-search input {
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid rgba(247, 242, 234, 0.14);
+  border-radius: 8px;
+  padding: 0 14px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--foreground);
+  outline: none;
+}
+
+.compact-search input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(50, 153, 212, 0.18);
+}
+
+.tab-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 2px 0 12px;
+}
+
+.tab-button {
+  flex: 0 0 auto;
+  min-height: 38px;
+  border: 1px solid rgba(247, 242, 234, 0.13);
+  border-radius: 8px;
+  padding: 0 14px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(247, 242, 234, 0.72);
+  cursor: pointer;
+}
+
+.tab-button.active {
+  background: var(--foreground);
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.app-tag-strip {
+  width: 100%;
+  margin: 0 0 18px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.app-muse-grid {
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+}
+
+.app-muse-card {
+  min-height: 390px;
+  aspect-ratio: 0.72;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
+}
+
+.app-muse-card .muse-slideshow {
+  display: block;
+}
+
+.app-muse-card .muse-slideshow img {
+  animation-name: museSlowFade;
+  animation-timing-function: cubic-bezier(0.45, 0, 0.2, 1);
+  filter: brightness(0.66) saturate(0.96);
+}
+
+.app-muse-card::after {
+  background:
+    linear-gradient(0deg, rgba(7, 8, 10, 0.96), rgba(7, 8, 10, 0.18) 62%, rgba(7, 8, 10, 0.28)),
+    linear-gradient(90deg, rgba(7, 8, 10, 0.18), transparent 44%);
+  pointer-events: none;
+}
+
+.muse-status-row {
+  position: absolute;
+  inset: 14px 14px auto;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.muse-status-row span,
+.muse-status-row small {
+  min-height: 28px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  padding: 0 10px;
+  background: rgba(7, 8, 10, 0.58);
+  color: var(--foreground);
+  font-size: 0.74rem;
+  font-weight: 800;
+  backdrop-filter: blur(12px);
+}
+
+.muse-status-row small {
+  color: var(--champagne);
+}
+
+.app-muse-card .muse-card-copy {
+  z-index: 2;
+  padding: 18px;
+}
+
+.app-muse-card .muse-card-copy h3 {
+  margin-top: 0;
+  font-size: 1.45rem;
+}
+
+.app-muse-card .muse-card-copy p {
+  min-height: 52px;
+}
+
+.app-muse-card .card-button {
+  width: 100%;
+  min-height: 42px;
+}
+
+@keyframes museSlowFade {
+  0%,
+  55% {
+    opacity: 1;
+    transform: scale(1.032);
+  }
+
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.005);
+  }
+}
+
+.feature-rail {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.feature-tile {
+  min-height: 170px;
+  display: grid;
+  align-content: end;
+  border: 1px solid rgba(247, 242, 234, 0.12);
+  border-radius: 8px;
+  padding: 18px;
+  background:
+    linear-gradient(150deg, rgba(50, 153, 212, 0.16), transparent 52%),
+    rgba(19, 24, 32, 0.68);
+  color: var(--foreground);
+  text-decoration: none;
+}
+
+.feature-tile:nth-child(2) {
+  background:
+    linear-gradient(150deg, rgba(216, 193, 160, 0.16), transparent 52%),
+    rgba(19, 24, 32, 0.68);
+}
+
+.feature-tile:nth-child(3) {
+  background:
+    linear-gradient(150deg, rgba(90, 32, 48, 0.24), transparent 52%),
+    rgba(19, 24, 32, 0.68);
+}
+
+.feature-tile span {
+  color: var(--champagne);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.feature-tile strong {
+  margin-top: 8px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.45rem;
+  font-weight: 400;
+}
+
+.feature-tile p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.app-main .airy-section,
+.app-main .club-preview,
+.app-main .future-admin {
+  width: 100%;
+  margin: 0;
+}
+
+.app-main .experience-strip,
+.app-main .compact-article-grid,
+.app-main .compact-team,
+.app-main .section-heading {
+  width: 100%;
+  max-width: none;
+}
+
+.app-main .experience-section,
+.app-main .editorial-section,
+.app-main .therapists-section,
+.app-main .search-section {
+  border: 1px solid rgba(247, 242, 234, 0.1);
+  border-radius: 8px;
+  background: rgba(14, 18, 23, 0.64);
+}
+
+.experience-item .text-link {
+  display: inline-flex;
+  margin-top: 18px;
+}
+
+@media (min-width: 981px) {
+  .site-shell {
+    padding-left: 244px;
+  }
+
+  .site-header {
+    display: none;
+  }
+}
+
+@media (max-width: 1200px) {
+  .feature-rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 980px) {
+  .app-sidebar {
+    display: none;
+  }
+
+  .app-main {
+    padding: 14px;
+  }
+
+  .app-hero,
+  .hero-carousel {
+    height: auto;
+    min-height: 560px;
+  }
+
+  .site-shell {
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .catalog-topbar,
+  .feature-rail,
+  .experience-strip,
+  .split-heading {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-carousel {
+    min-height: 620px;
+  }
+
+  .hero-slide {
+    padding: 24px;
+  }
+
+  .carousel-dots {
+    left: 24px;
+    right: auto;
+  }
+
+  .app-muse-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .app-muse-card {
+    min-height: 315px;
+  }
+
+  .app-muse-card .muse-card-copy p {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .app-main {
+    padding: 10px;
+  }
+
+  .hero-carousel {
+    min-height: 590px;
+  }
+
+  .hero-slide-copy h1 {
+    font-size: clamp(2.55rem, 14vw, 4.8rem);
+  }
+
+  .app-muse-card {
+    min-height: 292px;
+  }
+
+  .app-muse-card .muse-card-copy {
+    padding: 12px;
+  }
+
+  .muse-status-row {
+    inset: 10px 10px auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide,
+  .carousel-dots span::after,
+  .app-muse-card .muse-slideshow img {
+    animation: none;
+  }
+
+  .hero-slide:first-child,
+  .app-muse-card .muse-slideshow img:first-child {
+    opacity: 1;
+  }
+}
+
+/* Mobile resilience pass. */
+.app-main,
+.catalog-section,
+.feature-rail,
+.experience-strip,
+.compact-article-grid,
+.compact-team,
+.muse-page-hero,
+.profile-photo-grid,
+.search-results,
+.site-footer {
+  max-width: 100%;
+  min-width: 0;
+}
+
+.app-main *,
+.muse-page * {
+  min-width: 0;
+}
+
+p,
+h1,
+h2,
+h3,
+strong,
+span,
+a,
+li,
+dd {
+  overflow-wrap: anywhere;
+}
+
+.experience-item,
+.article-card,
+.therapist-card,
+.feature-tile,
+.search-results a,
+.club-preview,
+.future-admin {
+  overflow: hidden;
+}
+
+.profile-photo-card,
+.muse-page-cover,
+.app-muse-card,
+.hero-carousel {
+  max-width: 100%;
+}
+
+@media (max-width: 780px) {
+  .app-main {
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .app-hero,
+  .hero-carousel {
+    min-height: 480px;
+  }
+
+  .hero-slide {
+    align-items: end;
+    padding: 22px;
+    background-position: center top;
+  }
+
+  .hero-slide-copy {
+    padding-bottom: 28px;
+  }
+
+  .hero-slide-copy h1 {
+    font-size: clamp(2.45rem, 12vw, 4.8rem);
+  }
+
+  .hero-slide-copy p:not(.eyebrow) {
+    font-size: 0.94rem;
+    line-height: 1.55;
+  }
+
+  .catalog-section,
+  .app-main .experience-section,
+  .app-main .editorial-section,
+  .app-main .therapists-section,
+  .app-main .search-section,
+  .club-preview,
+  .future-admin {
+    padding: 18px;
+  }
+
+  .catalog-topbar {
+    gap: 14px;
+  }
+
+  .catalog-topbar h2,
+  .section-heading h2,
+  .club-preview h2,
+  .future-admin h2 {
+    font-size: clamp(1.9rem, 9vw, 3.1rem);
+  }
+
+  .app-muse-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .app-muse-card {
+    min-height: 260px;
+    aspect-ratio: 2 / 3;
+  }
+
+  .app-muse-card .muse-card-copy {
+    padding: 12px;
+  }
+
+  .app-muse-card .muse-card-copy h3 {
+    font-size: 1.15rem;
+  }
+
+  .app-muse-card .muse-card-copy p {
+    display: -webkit-box;
+    min-height: 0;
+    overflow: hidden;
+    font-size: 0.8rem;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .app-muse-card .muse-card-copy small {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .app-muse-card .card-button {
+    min-height: 38px;
+    margin-top: 10px;
+  }
+
+  .muse-status-row {
+    inset: 10px 10px auto;
+  }
+
+  .muse-status-row span,
+  .muse-status-row small {
+    min-height: 25px;
+    padding-inline: 8px;
+    font-size: 0.68rem;
+  }
+
+  .feature-rail,
+  .experience-strip,
+  .compact-article-grid,
+  .compact-team,
+  .split-heading,
+  .catalog-topbar,
+  .club-preview {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-tile {
+    min-height: 124px;
+  }
+
+  .experience-item,
+  .article-card,
+  .therapist-card {
+    padding: 16px;
+  }
+
+  .experience-item h3,
+  .article-card h3,
+  .therapist-card h3 {
+    font-size: 1.35rem;
+  }
+
+  .soft-item ul {
+    gap: 6px;
+  }
+
+  .soft-item li {
+    max-width: 100%;
+    font-size: 0.74rem;
+    line-height: 1.2;
+  }
+
+  .search-results a {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 14px;
+  }
+
+  .muse-page-hero {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 18px;
+  }
+
+  .muse-page-cover {
+    height: min(58vh, 390px);
+    min-height: 300px;
+  }
+
+  .muse-page-intro h1 {
+    font-size: clamp(2.55rem, 13vw, 4.8rem);
+  }
+
+  .profile-facts {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-gallery-section {
+    padding: 28px 12px;
+  }
+
+  .profile-photo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .profile-photo-card {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 3 / 4;
+  }
+
+  .premium-profile-photo figcaption {
+    inset: auto 10px 10px;
+  }
+
+  .premium-profile-photo figcaption strong {
+    font-size: 0.88rem;
+  }
+
+  .premium-profile-photo figcaption button {
+    min-height: 34px;
+    padding-inline: 10px;
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .site-header {
+    padding-inline: 10px;
+  }
+
+  .app-main {
+    padding: 8px;
+  }
+
+  .app-hero,
+  .hero-carousel {
+    min-height: 430px;
+  }
+
+  .hero-slide {
+    padding: 18px;
+  }
+
+  .hero-slide-copy {
+    padding-bottom: 20px;
+  }
+
+  .hero-slide-copy p:not(.eyebrow) {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  .button-row {
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .button-row a,
+  .button-row button,
+  .primary-button,
+  .secondary-button {
+    width: 100%;
+    min-height: 42px;
+  }
+
+  .catalog-section,
+  .app-main .experience-section,
+  .app-main .editorial-section,
+  .app-main .therapists-section,
+  .app-main .search-section,
+  .club-preview,
+  .future-admin {
+    padding: 14px;
+  }
+
+  .app-tag-strip {
+    gap: 7px;
+    margin-bottom: 12px;
+  }
+
+  .tag-pill,
+  .tab-button {
+    min-height: 34px;
+    padding-inline: 10px;
+    font-size: 0.78rem;
+  }
+
+  .app-muse-card {
+    min-height: 238px;
+  }
+
+  .app-muse-card .muse-card-copy p,
+  .app-muse-card .muse-card-copy small {
+    display: none;
+  }
+
+  .app-muse-card .muse-card-copy h3 {
+    margin-bottom: 8px;
+  }
+
+  .feature-tile {
+    min-height: 112px;
+  }
+
+  .experience-item,
+  .article-card,
+  .therapist-card {
+    padding: 14px;
+  }
+
+  .experience-item p,
+  .article-card p,
+  .therapist-card p,
+  .feature-tile p,
+  .club-preview p,
+  .future-admin p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .muse-page-cover {
+    height: 320px;
+    min-height: 320px;
+  }
+
+  .profile-avatar-large {
+    width: 82px;
+    height: 82px;
+  }
+
+  .profile-gallery-section {
+    padding-inline: 8px;
+  }
+
+  .profile-photo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .profile-photo-card {
+    aspect-ratio: 4 / 5;
+  }
+
+  .site-footer {
+    padding: 24px 14px 84px;
+  }
+}
+
+@media (max-width: 380px) {
+  .app-muse-card {
+    min-height: 210px;
+  }
+
+  .muse-status-row small {
+    display: none;
+  }
+
+  .profile-photo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-photo-card {
+    aspect-ratio: 1 / 1.18;
+  }
+}

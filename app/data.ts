@@ -1,10 +1,10 @@
 export const navItems = [
   ["Inicio", "inicio"],
-  ["Experiencias", "experiencias"],
-  ["Terapeutas", "terapeutas"],
   ["Musas Digitais", "musas"],
+  ["Experiencias", "experiencias"],
   ["Club Serenity", "club"],
   ["Conteudos", "conteudos"],
+  ["Terapeutas", "terapeutas"],
   ["Agendar", "agendar"],
 ];
 

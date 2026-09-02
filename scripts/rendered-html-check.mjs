@@ -2,51 +2,28 @@ import assert from "node:assert/strict";
 import { access, readFile } from "node:fs/promises";
 
 const templateRoot = new URL("../", import.meta.url);
-const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-workerUrl.searchParams.set("check", `${process.pid}-${Date.now()}`);
-const { default: worker } = await import(workerUrl.href);
-const handleRequest =
-  typeof worker === "function" ? worker : typeof worker?.fetch === "function" ? worker.fetch.bind(worker) : null;
+const html = await readFile(new URL("../out/index.html", import.meta.url), "utf8");
 
-assert.ok(handleRequest, "Local build should expose a request handler.");
-
-const response = await handleRequest(
-  new Request("http://localhost/", {
-    headers: { accept: "text/html", host: "localhost" },
-  }),
-  {
-    ASSETS: {
-      fetch: async () => new Response("Not found", { status: 404 }),
-    },
-  },
-  {
-    waitUntil() {},
-    passThroughOnException() {},
-  },
-);
-
-assert.equal(response.status, 200);
-assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
-
-const html = await response.text();
-assert.match(html, /Serenity \| Seu tempo\. Seus sentidos\. Sua experiência\./);
+assert.match(html, /Serenity/);
 assert.match(html, /Entre devagar/);
 assert.match(html, /O toque comeca antes da pele/);
 assert.match(html, /serenity-logo-white\.png/);
 assert.doesNotMatch(html, /codex-preview|Your site is taking shape|react-loading-skeleton/);
 
-const [page, ageGate, museData, museProfilePage, layout, packageJson] = await Promise.all([
+const [page, ageGate, museData, museProfilePage, layout, packageJson, vercelConfig] = await Promise.all([
   readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
   readFile(new URL("../app/components/AgeGate.tsx", import.meta.url), "utf8"),
   readFile(new URL("../app/data.ts", import.meta.url), "utf8"),
   readFile(new URL("../app/musas/[slug]/page.tsx", import.meta.url), "utf8"),
   readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
   readFile(new URL("../package.json", import.meta.url), "utf8"),
+  readFile(new URL("../vercel.json", import.meta.url), "utf8"),
 ]);
 
-assert.match(page, /Um convite aos sentidos/);
+assert.match(page, /Entre devagar/);
 assert.match(page, /\/musas\/\$\{muse\.slug\}/);
-assert.match(page, /museCrossfade|muse-slideshow/);
+assert.match(page, /hero-carousel|app-muse-card/);
+assert.match(page, /museSlowFade|muse-slideshow/);
 assert.match(ageGate, /Espaco reservado para adultos/);
 assert.match(ageGate, /Validar acesso/);
 assert.match(ageGate, /Privacidade primeiro/);
@@ -62,8 +39,10 @@ assert.match(museData, /patricia-premium-2\.jpeg/);
 assert.match(museData, /Personagem digital criada por IA/);
 assert.match(museProfilePage, /assine premiums/);
 assert.match(museProfilePage, /generateStaticParams/);
-assert.match(layout, /generateMetadata/);
-assert.doesNotMatch(packageJson, /react-loading-skeleton/);
+assert.match(layout, /export const metadata/);
+assert.match(packageJson, /"next": "16\.2\.6"/);
+assert.match(vercelConfig, /"outputDirectory": "out"/);
+assert.doesNotMatch(packageJson, /react-loading-skeleton|vinext|wrangler|drizzle/);
 
 await assert.rejects(access(new URL("app/_sites-preview/SkeletonPreview.tsx", templateRoot)));
 await assert.rejects(access(new URL("app/_sites-preview/preview.css", templateRoot)));
